@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ландайско-Русский Словарь — Lingua Landaica</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            100: '#fdf8e6',
+                            300: '#f3e1a8',
+                            400: '#e0c055',
+                            500: '#d4af37',
+                            600: '#b89228',
+                            700: '#94721a',
+                        },
+                        darkbg: '#0f1115',
+                        darkcard: '#161920',
+                        darkborder: '#232733'
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        serif: ['Merriweather', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(15, 17, 21, 0.6);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 175, 55, 0.7);
+        }
+        .glass-panel {
+            background: rgba(22, 25, 32, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-darkbg text-slate-100 font-sans transition-colors duration-300 min-h-screen flex flex-col selection:bg-gold-500 selection:text-black">
+
+    <header class="sticky top-0 z-40 bg-darkbg/90 backdrop-blur-md border-b border-gold-500/20 shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo & Academic Title -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('dictionary')">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gold-500 to-amber-700 flex items-center justify-center text-white shadow-lg shadow-gold-500/20">
+                        <span class="font-cinzel text-2xl font-black text-amber-100">Þ</span>
+                    </div>
+                    <div>
+                        <h1 class="font-cinzel text-xl sm:text-2xl font-bold tracking-wide text-gold-300 flex items-center gap-2">
+                            Landaica
+                        </h1>
+                        <p class="text-[10px] sm:text-xs text-gold-500/80 uppercase tracking-widest font-medium">Академический Ландайско-Русский Словарь</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                    <button onclick="switchTab('dictionary')" id="nav-dictionary" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 text-gold-300 bg-gold-500/10 border border-gold-500/30">
+                        <i class="fa-solid fa-book-bookmark mr-2"></i> Словарь
+                    </button>
+                    <button onclick="switchTab('alphabet')" id="nav-alphabet" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 text-slate-300 hover:text-gold-300 hover:bg-zinc-800">
+                        <i class="fa-solid fa-font mr-2"></i> Алфавит
+                    </button>
+                    <button onclick="switchTab('grammar')" id="nav-grammar" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 text-slate-300 hover:text-gold-300 hover:bg-zinc-800">
+                        <i class="fa-solid fa-graduation-cap mr-2"></i> Грамматика
+                    </button>
+                    <button onclick="switchTab('history')" id="nav-history" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 text-slate-300 hover:text-gold-300 hover:bg-zinc-800">
+                        <i class="fa-solid fa-scroll mr-2"></i> История
+                    </button>
+                    <button onclick="switchTab('quiz')" id="nav-quiz" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 text-slate-300 hover:text-gold-300 hover:bg-zinc-800">
+                        <i class="fa-solid fa-brain mr-2"></i> Тренажёр
+                    </button>
+                </nav>
+
+                <!-- Mobile Navigation Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-slate-300 hover:bg-zinc-800">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden border-t border-darkborder bg-darkcard px-4 pt-2 pb-4 space-y-1">
+            <button onclick="switchTab('dictionary'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gold-300 bg-gold-500/10 flex items-center gap-2">
+                <i class="fa-solid fa-book-bookmark w-6"></i> Словарь
+            </button>
+            <button onclick="switchTab('alphabet'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-zinc-800 flex items-center gap-2">
+                <i class="fa-solid fa-font w-6"></i> Алфавит
+            </button>
+            <button onclick="switchTab('grammar'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-zinc-800 flex items-center gap-2">
+                <i class="fa-solid fa-graduation-cap w-6"></i> Грамматика
+            </button>
+            <button onclick="switchTab('history'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-zinc-800 flex items-center gap-2">
+                <i class="fa-solid fa-scroll w-6"></i> История
+            </button>
+            <button onclick="switchTab('quiz'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-zinc-800 flex items-center gap-2">
+                <i class="fa-solid fa-brain w-6"></i> Тренажёр
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- ================= TAB 1: DICTIONARY ================= -->
+        <section id="tab-dictionary" class="tab-content block space-y-8">
+            <!-- Hero Header -->
+            <div class="relative bg-gradient-to-r from-amber-950 via-zinc-900 to-black text-gold-100 rounded-3xl p-6 sm:p-10 overflow-hidden shadow-2xl border border-gold-500/20">
+                <div class="absolute -right-10 -bottom-10 text-gold-500/10 text-9xl font-cinzel pointer-events-none select-none">Æ</div>
+                <div class="relative z-10 max-w-2xl space-y-3">
+                    <span class="inline-block px-3 py-1 bg-gold-500/20 border border-gold-500/40 rounded-full text-xs font-semibold uppercase tracking-wider text-gold-300">Официальный Канон</span>
+                    <h2 class="font-cinzel text-3xl sm:text-5xl font-bold tracking-tight text-white">Ландайско-Русский Лексикон</h2>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Полная академическая база данных слов с зафиксированной фонетикой, аудио-произношением и грамматическими пометами. Все слова управляются напрямую через программный код.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Search & Filters -->
+            <div class="glass-panel p-4 sm:p-6 rounded-2xl space-y-4">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <!-- Search Input -->
+                    <div class="relative flex-1">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Поиск по словарям (ландайский или русский)..." class="w-full pl-11 pr-10 py-3.5 rounded-xl border border-darkborder bg-zinc-900/90 focus:outline-none focus:ring-2 focus:ring-gold-500 text-sm transition-all text-white placeholder-slate-500">
+                        <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    <!-- Filter Dropdown & Actions -->
+                    <div class="flex items-center gap-3 overflow-x-auto custom-scrollbar">
+                        <select id="posFilter" onchange="applyFilters()" class="px-4 py-3.5 rounded-xl border border-darkborder bg-zinc-900 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-gold-500 text-slate-200">
+                            <option value="ALL">Все части речи</option>
+                            <option value="сущ.">Существительные</option>
+                            <option value="глаг.">Глаголы</option>
+                            <option value="прил.">Прилагательные</option>
+                            <option value="нареч.">Наречия</option>
+                            <option value="фраза">Фразы и Идиомы</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Alphabet Quick Strip -->
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Быстрый переход по алфавиту</span>
+                        <button onclick="filterByLetter('ALL')" class="text-xs text-gold-400 font-medium hover:underline">Все буквы</button>
+                    </div>
+                    <div class="flex items-center gap-1.5 overflow-x-auto pb-1 custom-scrollbar" id="alphabetStrip">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Word Cards Count -->
+            <div class="flex items-center justify-between text-xs sm:text-sm text-slate-400 px-1">
+                <span id="wordCountLabel">Загрузка данных...</span>
+                <span class="italic text-gold-500/80"><i class="fa-solid fa-lock text-xs mr-1"></i> Режим чтения (Изменение через JS)</span>
+            </div>
+
+            <!-- Words Cards Grid -->
+            <div id="wordsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamically populated by JS -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="noResults" class="hidden text-center py-16 glass-panel rounded-2xl">
+                <i class="fa-solid fa-book-open-reader text-5xl text-gold-500/30 mb-3"></i>
+                <h3 class="text-lg font-bold text-slate-200">Ничего не найдено</h3>
+                <p class="text-slate-400 text-sm mt-1 max-w-sm mx-auto">Попробуйте изменить поисковый запрос или сбросить фильтры.</p>
+                <button onclick="resetAllFilters()" class="mt-4 px-4 py-2 bg-gold-500/10 text-gold-300 border border-gold-500/30 rounded-xl text-sm font-medium hover:bg-gold-500/20 transition-colors">
+                    Сбросить все фильтры
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= TAB 2: ALPHABET ================= -->
+        <section id="tab-alphabet" class="tab-content hidden space-y-8">
+            <div class="border-b border-gold-500/30 pb-4">
+                <h2 class="font-cinzel text-3xl font-bold text-gold-300">Ландайский Алфавит и Фонология</h2>
+                <p class="text-slate-400 text-sm mt-1">Официальная фонетическая таблица. Нажмите кнопку произношения, чтобы прослушать эталонный звук.</p>
+            </div>
+
+            <div id="alphabetGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Populated dynamically from LANDAIS_DATABASE.alphabet -->
+            </div>
+        </section>
+
+        <!-- ================= TAB 3: GRAMMAR ================= -->
+        <section id="tab-grammar" class="tab-content hidden space-y-8">
+            <div class="border-b border-gold-500/30 pb-4">
+                <h2 class="font-cinzel text-3xl font-bold text-gold-300">Грамматический Справочник</h2>
+                <p class="text-slate-400 text-sm mt-1">Морфология, таблицы склонений и правила орфографии ландайского языка.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8" id="grammarContainer">
+                <!-- Populated dynamically from LANDAIS_DATABASE.grammar -->
+            </div>
+        </section>
+
+        <!-- ================= TAB 4: HISTORY ================= -->
+        <section id="tab-history" class="tab-content hidden space-y-8">
+            <div class="border-b border-gold-500/30 pb-4">
+                <h2 class="font-cinzel text-3xl font-bold text-gold-300">История и Происхождение Языка</h2>
+                <p class="text-slate-400 text-sm mt-1">Летопись формирования ландайской речи от рунических памятников до современной формы.</p>
+            </div>
+
+            <div class="relative border-l-2 border-gold-500/30 ml-4 pl-6 space-y-8 my-8" id="historyTimeline">
+                <!-- Populated dynamically from LANDAIS_DATABASE.history -->
+            </div>
+        </section>
+
+        <!-- ================= TAB 5: QUIZ ================= -->
+        <section id="tab-quiz" class="tab-content hidden space-y-8">
+            <div class="border-b border-gold-500/30 pb-4 text-center max-w-xl mx-auto">
+                <h2 class="font-cinzel text-3xl font-bold text-gold-300">Флэш-карточки Слов</h2>
+                <p class="text-slate-400 text-sm mt-1">Тренируйте запоминание слов и их точного звучания.</p>
+            </div>
+
+            <div class="max-w-md mx-auto">
+                <div id="flashcard" onclick="flipCard()" class="glass-panel border-2 border-gold-500/30 rounded-3xl p-8 sm:p-12 text-center shadow-2xl cursor-pointer min-h-[300px] flex flex-col justify-between items-center select-none hover:border-gold-500 transition-all">
+                    <span id="quizPos" class="text-xs font-bold uppercase tracking-wider text-gold-400 bg-gold-500/10 border border-gold-500/20 px-3 py-1 rounded-full">Часть речи</span>
+                    
+                    <div class="my-6 space-y-2">
+                        <div id="quizFront" class="font-cinzel text-4xl font-bold text-white">Aethera</div>
+                        <div id="quizIpa" class="text-sm text-slate-400 font-mono">[/ˈae̯.θe.ra/]</div>
+                        
+                        <div class="pt-2">
+                            <button onclick="event.stopPropagation(); playQuizAudio();" class="p-3 bg-gold-500/20 hover:bg-gold-500/40 text-gold-300 rounded-full transition-colors">
+                                <i class="fa-solid fa-volume-high text-lg"></i>
+                            </button>
+                        </div>
+
+                        <div id="quizBack" class="hidden text-xl font-semibold text-gold-300 mt-4 border-t border-darkborder pt-4">
+                            Светить, излучать свет
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-slate-500"><i class="fa-solid fa-rotate mr-1"></i> Нажмите для перевода</p>
+                </div>
+
+                <div class="flex items-center justify-between mt-6 gap-4">
+                    <button onclick="prevQuizCard()" class="flex-1 py-3.5 bg-zinc-800 hover:bg-zinc-700 text-slate-200 rounded-xl font-medium text-sm transition-colors">
+                        <i class="fa-solid fa-arrow-left mr-2"></i> Назад
+                    </button>
+                    <button onclick="nextQuizCard()" class="flex-1 py-3.5 bg-gold-500 hover:bg-gold-600 text-black rounded-xl font-bold text-sm shadow-lg transition-colors">
+                        Вперёд <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Detail Word Modal -->
+    <div id="wordModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-panel border border-gold-500/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative space-y-6">
+            <button onclick="closeWordModal()" class="absolute right-5 top-5 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="space-y-2">
+                <div class="flex items-center gap-3">
+                    <h3 id="modalWord" class="font-cinzel text-3xl font-bold text-gold-300">Word</h3>
+                    <button id="modalAudioBtn" class="p-2.5 bg-gold-500/20 hover:bg-gold-500/30 text-gold-300 rounded-full transition-colors" title="Воспроизвести произношение">
+                        <i class="fa-solid fa-volume-high text-base"></i>
+                    </button>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span id="modalIpa" class="font-mono text-sm text-slate-400">[/.../]</span>
+                    <span id="modalPos" class="px-2.5 py-0.5 bg-zinc-800 text-slate-300 rounded-full text-xs font-semibold uppercase">помета</span>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Русский перевод</h4>
+                    <p id="modalRussian" class="text-lg font-serif text-slate-100 font-medium"></p>
+                </div>
+
+                <div id="modalExampleBox" class="bg-zinc-900/80 p-4 rounded-2xl border border-darkborder space-y-1">
+                    <h4 class="text-[10px] font-semibold text-gold-500 uppercase tracking-wider">Пример использования</h4>
+                    <p id="modalExampleLandais" class="font-serif italic text-gold-200 text-sm"></p>
+                    <p id="modalExampleRu" class="text-slate-400 text-xs"></p>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Этимология и заметки</h4>
+                    <p id="modalEtymology" class="text-xs text-slate-300 leading-relaxed"></p>
+                </div>
+            </div>
+
+            <div class="pt-2 flex justify-end">
+                <button onclick="closeWordModal()" class="px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-slate-200 rounded-xl text-sm font-medium transition-colors">
+                    Закрыть
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* =========================================================================
+           ОФИЦИАЛЬНАЯ БАЗА ДАННЫХ ЛАНДАЙСКОГО ЯЗЫКА (УПРАВЛЯЕТСЯ ТОЛЬКО ЧЕРЕЗ КОД)
+           =========================================================================
+           Инструкция по добавлению нового слова:
+           1. Добавьте объект в массив `words`
+           2. Свойство `audio`:
+              - Укажите путь к mp3 файлу: "audio/words/myword.mp3"
+              - Или прямую ссылку URL: "https://site.com/sound.mp3"
+              - Если оставить пустым "", сработает авто-синтез речи.
+        */
+        const LANDAIS_DATABASE = {
+            alphabet: [
+                { letter: "A a", name: "А", ipa: "[ a ]", desc: "Открытый гласный звук, как в русском 'арфа'.", audio: "" },
+                { letter: "B b", name: "Бэ", ipa: "[ b ]", desc: "Звонкий губно-губной взрывной звук.", audio: "" },
+                { letter: "C c", name: "Cэ", ipa: "[ c ]", desc: "Звонко-гортанный звук К.", audio: "" },
+                { letter: "D d", name: "Дзэ или Зэ", ipa: "[ d ]", desc: "Звонкий альвеолярный взрывной звук.", audio: "" },
+                { letter: "Ð đ", name: "Дэ", ipa: "[ ð ]", desc: "Звонкий межзубный согласный, как в англ. 'this'.", audio: "" },
+                { letter: "E e", name: "Э", ipa: "[ e ]", desc: "Закрытый передний гласный звук.", audio: "" },
+                { letter: "F f", name: "Фэ", ipa: "[ f ]", desc: "Стандартный звук Ф.", audio: "" },
+                { letter: "G g", name: "Гэ", ipa: "[ ɡ ]", desc: "Звонкий заднеязычный взрывной.", audio: "" },
+                { letter: "Ğ ğ", name: "Гэ", ipa: "[ 'g ]", desc: "Звонко-гортанный звук Г.", audio "" },
+                { letter: "I i", name: "И", ipa: "[ i ]", desc: "Передний высокий гласный звук.", audio: "" },
+                { letter: "K k", name: "Кэ", ipa: "[ k ]", desc: "Глухой заднеязычный взрывной звук.", audio: "" },
+                { letter: "L l", name: "Эл", ipa: "[ ɬ ]", desc: "Глухой альвеолярный латеральный фрикативный звук (как в валлийском).", audio: "" },
+                { letter: "M m", name: "Эм", ipa: "[ m ]", desc: "Губной носовой звук.", audio: "" },
+                { letter: "N n", name: "Эн", ipa: "[ n ]", desc: "Альвеолярный носовой звук.", audio: "" },
+                { letter: "R r", name: "Эр", ipa: "[ r ]", desc: "Раскатистый звонкий альвеолярный звук.", audio: "" },
+                { letter: "S s", name: "Шэ", ipa: "[ s ]", desc: "Глухой альвеолярный фрикативный звук.", audio: "" },
+                { letter: "Þ þ", name: "Thorn", ipa: "[ θ ]", desc: "Глухой межзубный согласный, как в англ. 'think'.", audio: "" },
+                { letter: "V v", name: "Vin", ipa: "[ v ]", desc: "Звонкий губно-зубной фрикативный звук.", audio: "" }
+            ],
+
+            words: [
+                {
+                    id: "w1",
+                    landais: "Anthém",
+                    ipa: "/ˈan.θem/",
+                    pos: "сущ.",
+                    russian: "Друг",
+                    exampleLandais: "Ğao tynh ğȃ anthém.",
+                    exampleRu: "Это мой друг.",
+                    etymology: "От Эндолэндского – Angthiem - знакомый.",
+                    audio: "" // Укажите путь к mp3 файлу, например "audio/aethera.mp3"
+                },
+                {
+                    id: "w2",
+                    landais: "Þorn",
+                    ipa: "/θorn/",
+                    pos: "сущ.",
+                    russian: "Шип, терновник, священный защитный рубеж",
+                    exampleLandais: "Þorn garda landa nostris.",
+                    exampleRu: "Терновник охраняет нашу землю.",
+                    etymology: "Происходит от древнего рунического символа щита.",
+                    audio: ""
+                },
+                {
+                    id: "w3",
+                    landais: "Æðel",
+                    ipa: "/ˈæ.ðel/",
+                    pos: "прил.",
+                    russian: "Благородный, знатный, чистосердечный",
+                    exampleLandais: "Æðel reiks governas bona.",
+                    exampleRu: "Благородный правитель правит мудро.",
+                    etymology: "Когнат прагерманского *athel-.",
+                    audio: ""
+                },
+                {
+                    id: "w4",
+                    landais: "Vanda",
+                    ipa: "/ˈvan.da/",
+                    pos: "сущ.",
+                    russian: "Вода, священный поток, река жизни",
+                    exampleLandais: "Vanda flua ad mara.",
+                    exampleRu: "Вода течёт к морю.",
+                    etymology: "Индоевропейский корень *wed-.",
+                    audio: ""
+                },
+                {
+                    id: "w5",
+                    landais: "Llanis",
+                    ipa: "/ˈɬa.nis/",
+                    pos: "сущ.",
+                    russian: "Поляна, священная роща, луг",
+                    exampleLandais: "In llanis pax est.",
+                    exampleRu: "В священной роще царит мир.",
+                    etymology: "Кельтский субстратный пласт в ландайской лексике.",
+                    audio: ""
+                },
+                {
+                    id: "w6",
+                    landais: "Kharan",
+                    ipa: "/ˈxa.ran/",
+                    pos: "сущ.",
+                    russian: "Утёс, скала, вечный камень",
+                    exampleLandais: "Kharan stat in stormas.",
+                    exampleRu: "Утёс стоит во время бури.",
+                    etymology: "Архаический горный топонимический корень.",
+                    audio: ""
+                },
+                {
+                    id: "w7",
+                    landais: "Solin",
+                    ipa: "/ˈso.lin/",
+                    pos: "прил.",
+                    russian: "Солнечный, ясный, радостный",
+                    exampleLandais: "Solin dagis arrieth.",
+                    exampleRu: "Солнечный день настал.",
+                    etymology: "Производное от основы Sol (Солнце).",
+                    audio: ""
+                },
+                {
+                    id: "w8",
+                    landais: "Morn",
+                    ipa: "/morn/",
+                    pos: "нареч.",
+                    russian: "Утром, на рассвете",
+                    exampleLandais: "Morn veniunt avissas.",
+                    exampleRu: "На рассвете прилетают птицы.",
+                    etymology: "Связано со словом 'утреннее пробуждение'.",
+                    audio: ""
+                },
+                {
+                    id: "w9",
+                    landais: "Garda",
+                    ipa: "/ˈgar.da/",
+                    pos: "глаг.",
+                    russian: "Защищать, охранять, беречь",
+                    exampleLandais: "Garda domus tua.",
+                    exampleRu: "Охраняй свой дом.",
+                    etymology: "Основа *gard- (ограда, крепостной вал).",
+                    audio: ""
+                },
+                {
+                    id: "w10",
+                    landais: "Bona Þeod",
+                    ipa: "/ˈbo.na θe.od/",
+                    pos: "фраза",
+                    russian: "Добро пожаловать (букв. 'хороший народ')",
+                    exampleLandais: "Bona þeod in domus nostris!",
+                    exampleRu: "Добро пожаловать в наш дом!",
+                    etymology: "Традиционная формула гостеприимства.",
+                    audio: ""
+                },
+                {
+                    id: "w11",
+                    landais: "Runis",
+                    ipa: "/ˈru.nis/",
+                    pos: "сущ.",
+                    russian: "Тайна, руна, священный знак",
+                    exampleLandais: "Runis scribat in kharan.",
+                    exampleRu: "Руна высечена на скале.",
+                    etymology: "Древнесеверное заимствование эпохи первых королей.",
+                    audio: ""
+                },
+                {
+                    id: "w12",
+                    landais: "Noxis",
+                    ipa: "/ˈnok.sis/",
+                    pos: "сущ.",
+                    russian: "Ночь, Тьма, Покой",
+                    exampleLandais: "Noxis teget terran.",
+                    exampleRu: "Ночь покрывает землю.",
+                    etymology: "Праиндоевропейское *nokwt-.",
+                    audio: ""
+                }
+            ],
+
+            grammar: [
+                {
+                    title: "Склонение существительных",
+                    icon: "fa-shapes",
+                    desc: "В ландайском языке существительные разделяются по 3 основным падежам:",
+                    table: {
+                        headers: ["Падеж", "Единственное число", "Множественное число"],
+                        rows: [
+                            ["Именительный (Nominativ)", "Vand-a (Вода)", "Vand-ar (Воды)"],
+                            ["Родительный (Genitiv)", "Vand-is", "Vand-isum"],
+                            ["Косвенный (Accusativ)", "Vand-am", "Vand-arn"]
+                        ]
+                    }
+                },
+                {
+                    title: "Спряжение глаголов в настоящем времени",
+                    icon: "fa-bolt",
+                    desc: "Личные окончания прибавляются непосредственно к корню глагола (на примере Aether-a):",
+                    table: {
+                        headers: ["Лицо", "Единственное число", "Множественное число"],
+                        rows: [
+                            ["1-е (Я / Мы)", "Aether-o (Я свечу)", "Aether-omas (Мы светим)"],
+                            ["2-е (Ты / Вы)", "Aether-as (Ты светишь)", "Aether-ath (Вы светите)"],
+                            ["3-е (Он / Они)", "Aether-eth (Он светит)", "Aether-ond (Они светят)"]
+                        ]
+                    }
+                }
+            ],
+
+            history: [
+                {
+                    period: "IX — XI века",
+                    title: "Рунический Ландайский",
+                    text: "Сформировался среди племен Ландайской долины. Использовался алфавит из 18 рунических знаков, высекаемых на камнях."
+                },
+                {
+                    period: "XII — XVI века",
+                    title: "Классическая Эпоха",
+                    text: "Адаптация латинской графики с сохранением уникальных рунических букв Þ (Торн) и Æ (Эш). Расцвет эпической поэзии."
+                },
+                {
+                    period: "XIX век — Настоящее время",
+                    title: "Современная Нормализация",
+                    text: "Реформа 1884 года систематизировала словари и грамматику, зафиксировав нормативное академическое произношение."
+                }
+            ]
+        };
+
+        let selectedLetter = 'ALL';
+        let selectedPos = 'ALL';
+        let searchQuery = '';
+        let currentQuizIndex = 0;
+        let isFlipped = false;
+
+        // Central Audio Player Engine
+        function playSound(audioUrl, fallbackText) {
+            if (audioUrl && audioUrl.trim() !== '') {
+                // Воспроизведение пользовательского MP3 файла
+                const audio = new Audio(audioUrl);
+                audio.play().catch(err => {
+                    console.warn("Аудиофайл не найден или заблокирован, сработал синтез речи:", err);
+                    speakFallback(fallbackText);
+                });
+            } else {
+                // Резервный синтез речи при отсутствии файла
+                speakFallback(fallbackText);
+            }
+        }
+
+        function speakFallback(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                // Замена рунических букв для корректного чтения движком
+                const cleanText = text.replace(/[Þþ]/g, 'th').replace(/[Ææ]/g, 'ae').replace(/[Ðð]/g, 'th');
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.rate = 0.85;
+                utterance.lang = 'en-US';
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Initialize Application
+        window.addEventListener('DOMContentLoaded', () => {
+            renderAlphabetStrip();
+            renderDictionary();
+            renderAlphabetTab();
+            renderGrammarTab();
+            renderHistoryTab();
+            updateQuizCard();
+        });
+
+        // Navigation Tabs Switcher
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.className = 'nav-btn px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 text-slate-300 hover:text-gold-300 hover:bg-zinc-800';
+            });
+
+            const activeBtn = document.getElementById(`nav-${tabId}`);
+            if (activeBtn) {
+                activeBtn.className = 'nav-btn px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 text-gold-300 bg-gold-500/10 border border-gold-500/30';
+            }
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        }
+
+        // Alphabet Quick Filter Strip
+        function renderAlphabetStrip() {
+            const container = document.getElementById('alphabetStrip');
+            const letters = ['ALL', ...LANDAIS_DATABASE.alphabet.map(a => a.letter.split(' ')[0])];
+
+            container.innerHTML = letters.map(letter => {
+                const isActive = selectedLetter === letter;
+                return `
+                    <button onclick="filterByLetter('${letter}')" 
+                        class="px-3 py-1.5 rounded-lg font-cinzel text-xs font-bold transition-all ${
+                            isActive 
+                            ? 'bg-gold-500 text-black shadow-md' 
+                            : 'bg-zinc-900 text-slate-300 hover:bg-zinc-800 border border-darkborder'
+                        }">
+                        ${letter === 'ALL' ? 'Все' : letter}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function filterByLetter(letter) {
+            selectedLetter = letter;
+            renderAlphabetStrip();
+            renderDictionary();
+        }
+
+        function handleSearch() {
+            searchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
+            document.getElementById('clearSearchBtn').classList.toggle('hidden', searchQuery === '');
+            renderDictionary();
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            searchQuery = '';
+            document.getElementById('clearSearchBtn').classList.add('hidden');
+            renderDictionary();
+        }
+
+        function applyFilters() {
+            selectedPos = document.getElementById('posFilter').value;
+            renderDictionary();
+        }
+
+        function resetAllFilters() {
+            selectedLetter = 'ALL';
+            selectedPos = 'ALL';
+            searchQuery = '';
+            document.getElementById('searchInput').value = '';
+            document.getElementById('posFilter').value = 'ALL';
+            document.getElementById('clearSearchBtn').classList.add('hidden');
+            renderAlphabetStrip();
+            renderDictionary();
+        }
+
+        function renderDictionary() {
+            const grid = document.getElementById('wordsGrid');
+            const noResults = document.getElementById('noResults');
+
+            const filtered = LANDAIS_DATABASE.words.filter(item => {
+                if (selectedLetter !== 'ALL' && !item.landais.toUpperCase().startsWith(selectedLetter)) {
+                    return false;
+                }
+                if (selectedPos !== 'ALL' && item.pos !== selectedPos) {
+                    return false;
+                }
+                if (searchQuery) {
+                    const l = item.landais.toLowerCase();
+                    const r = item.russian.toLowerCase();
+                    return l.includes(searchQuery) || r.includes(searchQuery);
+                }
+                return true;
+            });
+
+            document.getElementById('wordCountLabel').innerText = `Записей в словаре: ${filtered.length} из ${LANDAIS_DATABASE.words.length}`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            noResults.classList.add('hidden');
+
+            grid.innerHTML = filtered.map(item => `
+                <div onclick="openWordModal('${item.id}')" class="glass-panel rounded-2xl p-6 hover:border-gold-500/50 transition-all flex flex-col justify-between group cursor-pointer relative shadow-lg">
+                    <div>
+                        <div class="flex items-start justify-between gap-3 mb-3">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="font-cinzel text-2xl font-bold text-gold-300 group-hover:text-gold-400 transition-colors">${item.landais}</h3>
+                                    <button onclick="event.stopPropagation(); playSound('${item.audio}', '${item.landais}')" title="Прослушать произношение" class="text-slate-400 hover:text-gold-400 p-1">
+                                        <i class="fa-solid fa-volume-high text-sm"></i>
+                                    </button>
+                                </div>
+                                <span class="font-mono text-xs text-slate-400">${item.ipa}</span>
+                            </div>
+                            <span class="px-2.5 py-1 bg-zinc-800 border border-darkborder text-slate-300 rounded-full text-xs font-semibold uppercase">${item.pos}</span>
+                        </div>
+
+                        <p class="font-serif text-slate-200 text-sm font-medium leading-relaxed mb-4 line-clamp-2">
+                            ${item.russian}
+                        </p>
+
+                        ${item.exampleLandais ? `
+                            <div class="bg-zinc-900/90 p-3 rounded-xl border border-darkborder mb-3 text-xs space-y-1">
+                                <p class="font-serif italic text-gold-200">"${item.exampleLandais}"</p>
+                                <p class="text-slate-400">— ${item.exampleRu}</p>
+                            </div>
+                        ` : ''}
+                    </div>
+
+                    ${item.etymology ? `
+                        <div class="pt-3 border-t border-darkborder text-[11px] text-slate-400 flex items-center gap-1.5">
+                            <i class="fa-solid fa-seedling text-gold-500"></i>
+                            <span class="truncate">${item.etymology}</span>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Word Details Modal Logic
+        function openWordModal(id) {
+            const word = LANDAIS_DATABASE.words.find(w => w.id === id);
+            if (!word) return;
+
+            document.getElementById('modalWord').innerText = word.landais;
+            document.getElementById('modalIpa').innerText = word.ipa;
+            document.getElementById('modalPos').innerText = word.pos;
+            document.getElementById('modalRussian').innerText = word.russian;
+            
+            const exBox = document.getElementById('modalExampleBox');
+            if (word.exampleLandais) {
+                exBox.classList.remove('hidden');
+                document.getElementById('modalExampleLandais').innerText = `"${word.exampleLandais}"`;
+                document.getElementById('modalExampleRu').innerText = `— ${word.exampleRu}`;
+            } else {
+                exBox.classList.add('hidden');
+            }
+
+            document.getElementById('modalEtymology').innerText = word.etymology || 'Этимологические данные уточняются.';
+
+            document.getElementById('modalAudioBtn').onclick = () => playSound(word.audio, word.landais);
+
+            document.getElementById('wordModal').classList.remove('hidden');
+        }
+
+        function closeWordModal() {
+            document.getElementById('wordModal').classList.add('hidden');
+        }
+
+        function renderAlphabetTab() {
+            const grid = document.getElementById('alphabetGrid');
+            grid.innerHTML = LANDAIS_DATABASE.alphabet.map(item => `
+                <div class="glass-panel p-6 rounded-2xl border border-darkborder space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="font-cinzel text-3xl font-bold text-gold-300">${item.letter}</h3>
+                            <span class="text-xs text-slate-400">Название: ${item.name}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-mono text-sm px-2.5 py-1 bg-zinc-900 border border-darkborder rounded-lg text-gold-400">${item.ipa}</span>
+                            <button onclick="playSound('${item.audio}', '${item.name}')" class="p-2.5 bg-gold-500/20 hover:bg-gold-500/30 text-gold-300 rounded-full transition-colors">
+                                <i class="fa-solid fa-volume-high text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">${item.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderGrammarTab() {
+            const container = document.getElementById('grammarContainer');
+            container.innerHTML = LANDAIS_DATABASE.grammar.map(item => `
+                <div class="glass-panel p-6 rounded-2xl border border-darkborder space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="p-3 bg-gold-500/20 rounded-xl text-gold-400">
+                            <i class="fa-solid ${item.icon} text-xl"></i>
+                        </div>
+                        <h3 class="font-cinzel text-xl font-bold text-white">${item.title}</h3>
+                    </div>
+
+                    <p class="text-sm text-slate-300">${item.desc}</p>
+
+                    <div class="overflow-x-auto rounded-xl border border-darkborder">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-zinc-900 text-gold-300 font-cinzel">
+                                <tr>
+                                    ${item.table.headers.map(h => `<th class="p-3">${h}</th>`).join('')}
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-darkborder font-serif text-slate-200">
+                                ${item.table.rows.map(row => `
+                                    <tr class="hover:bg-zinc-800/50">
+                                        ${row.map(cell => `<td class="p-3">${cell}</td>`).join('')}
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderHistoryTab() {
+            const container = document.getElementById('historyTimeline');
+            container.innerHTML = LANDAIS_DATABASE.history.map(item => `
+                <div class="relative">
+                    <div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-gold-500 border-4 border-darkbg"></div>
+                    <span class="text-xs font-bold text-gold-400 uppercase tracking-widest">${item.period}</span>
+                    <h3 class="font-cinzel text-xl font-bold text-white mt-1">${item.title}</h3>
+                    <p class="text-sm text-slate-300 mt-2 leading-relaxed">${item.text}</p>
+                </div>
+            `).join('');
+        }
+
+        function updateQuizCard() {
+            if (LANDAIS_DATABASE.words.length === 0) return;
+            const current = LANDAIS_DATABASE.words[currentQuizIndex];
+
+            document.getElementById('quizPos').innerText = current.pos;
+            document.getElementById('quizFront').innerText = current.landais;
+            document.getElementById('quizIpa').innerText = current.ipa;
+            document.getElementById('quizBack').innerText = current.russian;
+
+            isFlipped = false;
+            document.getElementById('quizBack').classList.add('hidden');
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            document.getElementById('quizBack').classList.toggle('hidden', !isFlipped);
+        }
+
+        function playQuizAudio() {
+            const current = LANDAIS_DATABASE.words[currentQuizIndex];
+            playSound(current.audio, current.landais);
+        }
+
+        function nextQuizCard() {
+            currentQuizIndex = (currentQuizIndex + 1) % LANDAIS_DATABASE.words.length;
+            updateQuizCard();
+        }
+
+        function prevQuizCard() {
+            currentQuizIndex = (currentQuizIndex - 1 + LANDAIS_DATABASE.words.length) % LANDAIS_DATABASE.words.length;
+            updateQuizCard();
+        }
+    </script>
+</body>
+</html>
