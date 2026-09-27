@@ -1,5 +1,3 @@
-Замени все шрифты в этом скрипте на классические (по типу Arial, и др.), и сделай онлайн просмотр
-
 <!DOCTYPE html>
 <html lang="ru" class="dark">
 <head>
@@ -26,28 +24,21 @@
                             border: '#262a36',
                             accent: '#1f2430'
                         }
-                    },
-                    fontFamily: {
-                        cinzel: ['Cinzel', 'serif'],
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace']
                     }
                 }
             }
         }
     </script>
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        body, button, input, select, textarea {
+            font-family: Arial, Helvetica, sans-serif !important;
+        }
         body {
-            font-family: 'Inter', sans-serif;
             background-color: #0f1115;
             color: #e2e8f0;
-        }
-        .font-cinzel {
-            font-family: 'Cinzel', serif;
         }
         .glass-card {
             background-color: #161920;
@@ -88,11 +79,11 @@
     <header class="sticky top-0 z-40 bg-dark-bg/95 backdrop-blur-md border-b border-dark-border px-4 lg:px-8 py-3.5">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-700 via-gold-500 to-yellow-300 flex items-center justify-center text-slate-950 font-cinzel font-bold text-2xl shadow-lg gold-glow">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-700 via-gold-500 to-yellow-300 flex items-center justify-center text-slate-950 font-bold text-2xl shadow-lg gold-glow">
                     Æ
                 </div>
                 <div>
-                    <h1 class="text-xl font-cinzel font-bold gold-gradient-text tracking-wider">LINGUA LANDAICA</h1>
+                    <h1 class="text-xl font-bold gold-gradient-text tracking-wider">LINGUA LANDAICA</h1>
                     <p class="text-xs text-slate-400">Академический Лексикон &amp; Графика с пользовательским аудио</p>
                 </div>
             </div>
@@ -123,16 +114,16 @@
         <!-- TAB 1: DICTIONARY -->
         <section id="tab-dictionary" class="space-y-8">
             <div class="bg-gradient-to-r from-dark-card via-dark-accent to-dark-card border border-gold-500/20 rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-                <div class="absolute -right-8 -bottom-8 opacity-5 text-gold-400 font-cinzel text-9xl select-none">0 A Þ Æ</div>
+                <div class="absolute -right-8 -bottom-8 opacity-5 text-gold-400 text-9xl select-none font-bold">0 A Þ Æ</div>
                 <div class="relative z-10 max-w-3xl">
                     <span class="inline-block px-3 py-1 bg-gold-500/10 border border-gold-500/30 rounded-full text-xs font-semibold text-gold-400 mb-3">
                         Официальный лексический кодекс
                     </span>
-                    <h2 class="text-3xl sm:text-4xl font-cinzel font-bold text-white mb-2">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-2">
                         Академический Словарь Landais
                     </h2>
                     <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-                        Каждое слово поддерживает указание ссылки на аудиофайл (<code class="text-gold-400 font-mono">audioUrl</code>). Вы можете прикреплять прямые ссылки на mp3/wav файлы в структуре данных.
+                        Каждое слово поддерживает указание ссылки на аудиофайл (<code class="text-gold-400">audioUrl</code>). Вы можете прикреплять прямые ссылки на mp3/wav файлы в структуре данных.
                     </p>
                 </div>
             </div>
@@ -144,7 +135,7 @@
                         <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-sm"></i>
                         <input id="dict-search" oninput="filterDictionary()" type="text" placeholder="Поиск слова, IPA, описания или примера..." class="w-full bg-dark-bg text-slate-200 text-sm rounded-xl pl-10 pr-4 py-2 border border-dark-border focus:border-gold-500 focus:outline-none transition-colors">
                     </div>
-                    <div id="dict-stats" class="text-xs text-slate-400 font-mono">
+                    <div id="dict-stats" class="text-xs text-slate-400">
                         Загрузка лексической базы...
                     </div>
                 </div>
@@ -161,12 +152,13 @@
             </div>
         </section>
 
+        <!-- TAB 2: ALPHABET -->
         <section id="tab-alphabet" class="hidden space-y-10">
             <div class="bg-gradient-to-r from-dark-card via-slate-900 to-dark-card border border-gold-500/20 rounded-2xl p-6 sm:p-8">
                 <span class="inline-block px-3 py-1 bg-gold-500/10 border border-gold-500/30 rounded-full text-xs font-semibold text-gold-400 mb-2">
                     Графическая эволюция
                 </span>
-                <h2 class="text-3xl font-cinzel font-bold text-white mb-2">Алфавитная Система &amp; Палеография</h2>
+                <h2 class="text-3xl font-bold text-white mb-2">Алфавитная Система &amp; Палеография</h2>
                 <p class="text-slate-300 text-sm max-w-3xl">
                     Современные и исчезнувшие буквы с индивидуальными audioUrl ссылками на озвучку каждого символа.
                 </p>
@@ -176,7 +168,7 @@
             <div class="space-y-4">
                 <div class="flex items-center gap-3 border-b border-dark-border pb-3">
                     <i class="fa-solid fa-font text-gold-400 text-lg"></i>
-                    <h3 class="text-xl font-cinzel font-bold text-amber-300">Современный Алфавит</h3>
+                    <h3 class="text-xl font-bold text-amber-300">Современный Алфавит</h3>
                 </div>
                 <div id="modern-alphabet-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                     <!-- Modern cards -->
@@ -188,10 +180,10 @@
                 <div class="flex items-center gap-3 border-b border-dark-border pb-3">
                     <i class="fa-solid fa-hourglass-end text-gold-500 text-lg"></i>
                     <div>
-                        <h3 class="text-xl font-cinzel font-bold text-gold-400">Устаревшие и Исчезнувшие Буквы (Archaic &amp; Disused Letters)</h3>
+                        <h3 class="text-xl font-bold text-gold-400">Устаревшие и Исчезнувшие Буквы (Archaic &amp; Disused Letters)</h3>
                         <p class="text-xs text-slate-400">Символы, выведенные из официальной графики в ходе орфографических реформ.</p>
                     </div>
-                </div>то
+                </div>
 
                 <div id="archaic-alphabet-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     <!-- Archaic cards generated dynamically -->
@@ -199,9 +191,10 @@
             </div>
         </section>
 
+        <!-- TAB 3: TONES -->
         <section id="tab-tones" class="hidden space-y-8">
             <div class="bg-dark-card border border-dark-border rounded-2xl p-6 sm:p-8">
-                <h2 class="text-3xl font-cinzel font-bold text-gold-400 mb-3">Тональная система (Phonetic Pitch)</h2>
+                <h2 class="text-3xl font-bold text-gold-400 mb-3">Тональная система (Phonetic Pitch)</h2>
                 <p class="text-slate-300 text-sm leading-relaxed mb-6 max-w-3xl">
                     Ландайский использует регистрово-интонационные тона. Нажмите на иконку воспроизведения, чтобы услышать прикрепленный audioUrl тон или синтезируемую частоту.
                 </p>
@@ -212,9 +205,10 @@
             </div>
         </section>
 
+        <!-- TAB 4: GRAMMAR -->
         <section id="tab-grammar" class="hidden space-y-8">
             <div class="bg-dark-card border border-dark-border rounded-2xl p-6 sm:p-8 space-y-6">
-                <h2 class="text-3xl font-cinzel font-bold text-gold-400">Грамматический Строй Lingua Landaica</h2>
+                <h2 class="text-3xl font-bold text-gold-400">Грамматический Строй Lingua Landaica</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
                     <div class="bg-dark-bg p-5 rounded-xl border border-dark-border space-y-2">
@@ -234,9 +228,10 @@
             </div>
         </section>
 
+        <!-- TAB 5: HISTORY -->
         <section id="tab-history" class="hidden space-y-8">
             <div class="bg-dark-card border border-dark-border rounded-2xl p-6 sm:p-8">
-                <h2 class="text-3xl font-cinzel font-bold text-gold-400 mb-4">История и Реформы Письменности</h2>
+                <h2 class="text-3xl font-bold text-gold-400 mb-4">История и Реформы Письменности</h2>
                 <div class="space-y-6 text-slate-300">
                     <div class="border-l-2 border-gold-500 pl-4 space-y-1">
                         <h4 class="font-bold text-white text-lg">1. 1-й Ландайский Язык (2020-2021)</h4>
@@ -276,15 +271,8 @@
     </footer>
 
     <script>
-        /**
-         * ИНСТРУКЦИЯ ПО ВСТАВКЕ СОБСТВЕННЫХ АУДИОФАЙЛОВ:
-         * Вставьте ссылку на ваш аудиофайл (mp3, wav, ogg) в поле "audioUrl" нужного элемента.
-         * Пример: "audioUrl": "https://example.com/audio/anthem.mp3" или "audioUrl": "./audio/anta.wav"
-         * Если audioUrl пуст (""), система автоматически включит резервный синтез речи/тонов.
-         */
         const LANDAIS_DATABASE = {
             dictionary: [
-                // Буквенный раздел A
                 {
                     word: "Anthém",
                     letter: "A",
@@ -292,7 +280,7 @@
                     description: "Торжественный священный гимн или песнопение.",
                     example: "L'Anthém d'or résonna dans la grande vallée.",
                     exampleTranslation: "Золотой гимн разнесся по великой долине.",
-                    audioUrl: "https://actions.google.com/sounds/v1/ambiences/outdoor_rain.ogg" // СЮДА ВСТАВЛЯЙТЕ ССЫЛКУ НА ВАШ ФАЙЛ
+                    audioUrl: "https://actions.google.com/sounds/v1/ambiences/outdoor_rain.ogg"
                 },
                 {
                     word: "Ȃta͆t",
@@ -301,7 +289,7 @@
                     description: "Комната.",
                     example: "Ğão ȃta͆t ẹ̆ nguḩran.",
                     exampleTranslation: "Эта комната красивая.",
-                    audioUrl: "" // СЮДА ВСТАВЛЯЙТЕ ССЫЛКУ НА ВАШ ФАЙЛ
+                    audioUrl: ""
                 },
                 {
                     word: "Ȧxat",
@@ -310,7 +298,7 @@
                     description: "Багаж, Чемодан.",
                     example: "La racine pénètre la fertile ànta.",
                     exampleTranslation: "Корень проникает в плодородную землю.",
-                    audioUrl: "" // СЮДА ВСТАВЛЯЙТЕ ССЫЛКУ НА ВАШ ФАЙЛ
+                    audioUrl: ""
                 },
                 {
                     word: "Ȧxat a͋ c͜lủx͜cãong",
@@ -319,7 +307,7 @@
                     description: "Багажное Отделение.",
                     example: "L'Astrell guide les marins.",
                     exampleTranslation: "Звездочка направляет моряков.",
-                    audioUrl: "" // СЮДА ВСТАВЛЯЙТЕ ССЫЛКУ НА ВАШ ФАЙЛ
+                    audioUrl: ""
                 },
                 {
                     word: "Axtepduĕn",
@@ -328,10 +316,8 @@
                     description: "Приходить.",
                     example: "L'Astrell guide les marins.",
                     exampleTranslation: "Звездочка направляет моряков.",
-                    audioUrl: "" // СЮДА ВСТАВЛЯЙТЕ ССЫЛКУ НА ВАШ ФАЙЛ
+                    audioUrl: ""
                 },
-
-                // Буквенный раздел B
                 {
                     word: "Béran",
                     letter: "B",
@@ -339,7 +325,7 @@
                     description: "Скалистый природный берег.",
                     example: "Ils ont accosté sur le béran.",
                     exampleTranslation: "Они причалили к береговому утесу.",
-                    audioUrl: "" // СЮДА ВСТАВЛЯЙТЕ ССЫЛКУ НА ВАШ ФАЙЛ
+                    audioUrl: ""
                 },
                 {
                     word: "Bramór",
@@ -348,10 +334,8 @@
                     description: "Глубокий шум прибоя или шторма.",
                     example: "Le bramór annonçait la tempête.",
                     exampleTranslation: "Грохот волн предвещал бурю.",
-                    audioUrl: "" // СЮДА ВСТАВЛЯЙТЕ ССЫЛКУ НА ВАШ ФАЙЛ
+                    audioUrl: ""
                 },
-
-                // Буквенный раздел C
                 {
                     word: "Cȧntom",
                     letter: "C",
@@ -359,7 +343,7 @@
                     description: "Выход на посадку / Gate.",
                     example: "Les aigles volent dans le caelum.",
                     exampleTranslation: "Орлы парят в небесном своде.",
-                    audioUrl: "" // СЮДА ВСТАВЛЯЙТЕ ССЫЛКУ НА ВАШ ФАЙЛ
+                    audioUrl: ""
                 },
                 {
                     word: "Corval",
@@ -368,10 +352,8 @@
                     description: "Уединенная лесная долина.",
                     example: "Le ruisseau traverse le corval.",
                     exampleTranslation: "Ручей протекает через лесную долину.",
-                    audioUrl: "" // СЮДА ВСТАВЛЯЙТЕ ССЫЛКУ НА ВАШ ФАЙЛ
+                    audioUrl: ""
                 },
-
-                // Буквенный раздел D
                 {
                     word: "Délos",
                     letter: "D",
@@ -379,10 +361,8 @@
                     description: "Ясность, истина, озарение.",
                     example: "La délos de son esprit nous inspire.",
                     exampleTranslation: "Ясность его разума вдохновляет нас.",
-                    audioUrl: "" // СЮДА ВСТАВЛЯЙТЕ ССЫЛКУ НА ВАШ ФАЙЛ
+                    audioUrl: ""
                 },
-
-                // Буквенный раздел Þ (Thorn)
                 {
                     word: "Þorn",
                     letter: "E",
@@ -390,7 +370,7 @@
                     description: "Шип, священный символ защиты.",
                     example: "Þorn protège le rameau d'or.",
                     exampleTranslation: "Шип защищает золотую ветвь.",
-                    audioUrl: "" // СЮДА ВСТАВЛЯЙТЕ ССЫЛКУ НА ВАШ ФАЙЛ
+                    audioUrl: ""
                 },
                 {
                     word: "Þalor",
@@ -399,10 +379,8 @@
                     description: "Благородная воинская храбрость.",
                     example: "Son þalor reste sans égal.",
                     exampleTranslation: "Его храбрость остается непревзойденной.",
-                    audioUrl: "" // СЮДА ВСТАВЛЯЙТЕ ССЫЛКУ НА ВАШ ФАЙЛ
+                    audioUrl: ""
                 },
-
-                // Буквенный раздел V
                 {
                     word: "Vesper",
                     letter: "F",
@@ -410,7 +388,7 @@
                     description: "Вечерняя прохлада или закат.",
                     example: "Le vesper tombe sur la cité.",
                     exampleTranslation: "Вечерняя прохлада опускается на город.",
-                    audioUrl: "" // СЮДА ВСТАВЛЯЙТЕ ССЫЛКУ НА ВАШ ФАЙЛ
+                    audioUrl: ""
                 }
             ],
             
@@ -449,7 +427,7 @@
                     period: "Выведена 26 Сентября 2026 года по Григорианскому Календарю.",
                     replacement: "Заменена диактирикой «Ȧ».",
                     history: "Использовалась в качестве самостоятельной согласной для обозначения звука «W».",
-                    audioUrl: "" // СЮДА ССЫЛКУ НА АУДИО
+                    audioUrl: ""
                 },
                 {
                     symbol: "Ȝ ȝ",
@@ -458,7 +436,7 @@
                     period: "Выведена в XV веке",
                     replacement: "Заменена на «Y y» или «Gh gh»",
                     history: "Средневековый знак, использовавшийся для обозначения велярных и палатальных спирантов.",
-                    audioUrl: "" // СЮДА ССЫЛКУ НА АУДИО
+                    audioUrl: ""
                 },
                 {
                     symbol: "Ŋ ŋ",
@@ -467,7 +445,7 @@
                     period: "Архаичный велярный знак",
                     replacement: "Заменена на «Ng ng»",
                     history: "Обозначала носовой велярный звук на конце слов. Сохраняется только в лингвистических транскрипциях.",
-                    audioUrl: "" // СЮДА ССЫЛКУ НА АУДИО
+                    audioUrl: ""
                 },
                 {
                     symbol: "Æ æ",
@@ -476,7 +454,7 @@
                     period: "Реформирована в XVI веке",
                     replacement: "Заменена на «Ae» или «E»",
                     history: "Лигатура букв A и E. Обозначала ненапряженный гласный переднего ряда.",
-                    audioUrl: "" // СЮДА ССЫЛКУ НА АУДИО
+                    audioUrl: ""
                 },
                 {
                     symbol: "Œ œ",
@@ -485,7 +463,7 @@
                     period: "Реформирована в XVII веке",
                     replacement: "Заменена на «Oe» или «E»",
                     history: "Обозначала огубленный гласный переднего ряда. Выведена из официального академического алфавита.",
-                    audioUrl: "" // СЮДА ССЫЛКУ НА АУДИО
+                    audioUrl: ""
                 },
                 {
                     symbol: "ſ",
@@ -494,7 +472,7 @@
                     period: "Выведена в XIX веке",
                     replacement: "Заменена на «S s»",
                     history: "Вариант буквы 's', использовавшийся в начале и середине слов.",
-                    audioUrl: "" // СЮДА ССЫЛКУ НА АУДИО
+                    audioUrl: ""
                 }
             ],
 
@@ -505,7 +483,7 @@
                     description: "Обозначается акутом. Голос резкий, поднимается к верхнему регистру.",
                     exampleWord: "Ánta /ˈán.ta/",
                     meaning: "Солнце",
-                    audioUrl: "", // СЮДА ВСТАВЛЯЙТЕ ССЫЛКУ НА ФАЙЛ
+                    audioUrl: "",
                     freq: 440
                 },
                 {
@@ -514,7 +492,7 @@
                     description: "Обозначается грависом. Глубокий понижающийся грудной тон.",
                     exampleWord: "Ànta /ˈàn.ta/",
                     meaning: "Земля",
-                    audioUrl: "", // СЮДА ВСТАВЛЯЙТЕ ССЫЛКУ НА ФАЙЛ
+                    audioUrl: "",
                     freq: 220
                 },
                 {
@@ -523,7 +501,7 @@
                     description: "Обозначается гачеком. Плавно переходит от среднего к высокому.",
                     exampleWord: "Ǎnta /ˈǎn.ta/",
                     meaning: "Река",
-                    audioUrl: "", // СЮДА ВСТАВЛЯЙТЕ ССЫЛКУ НА ФАЙЛ
+                    audioUrl: "",
                     sweep: [250, 480]
                 }
             ]
@@ -552,15 +530,12 @@
             }, 2500);
         }
 
-        // Universal Play Audio function
         function playSound(audioUrl, fallbackText = "", fallbackType = "speech", extraData = null) {
-            // Stop any currently playing custom audio
             if (activeAudioObject) {
                 activeAudioObject.pause();
                 activeAudioObject.currentTime = 0;
             }
 
-            // 1. Check if custom audioUrl is specified and valid
             if (audioUrl && typeof audioUrl === 'string' && audioUrl.trim().length > 0) {
                 try {
                     activeAudioObject = new Audio(audioUrl.trim());
@@ -580,7 +555,6 @@
                 }
             }
 
-            // 2. Fallback execution if audioUrl is empty or failed
             runFallbackSound(fallbackText, fallbackType, extraData);
         }
 
@@ -605,7 +579,6 @@
             }
         }
 
-        // Web Audio Synthesizer Fallbacks
         function getAudioContext() {
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -655,7 +628,6 @@
 
             if (!listContainer) return;
 
-            // Filter
             const filteredWords = LANDAIS_DATABASE.dictionary.filter(item => {
                 const matchesSearch = 
                     item.word.toLowerCase().includes(filterQuery.toLowerCase()) ||
@@ -668,12 +640,10 @@
                 return matchesSearch && matchesLetter;
             });
 
-            // Extract Unique Letters
             const allLetters = ['ALL', ...new Set(LANDAIS_DATABASE.dictionary.map(item => item.letter.toUpperCase()))].sort();
 
-            // Render Letter Badges
             filterBar.innerHTML = allLetters.map(let => `
-                <button onclick="setLetterFilter('${let}')" class="px-2.5 py-1 text-xs font-mono font-bold rounded-lg border transition-all ${
+                <button onclick="setLetterFilter('${let}')" class="px-2.5 py-1 text-xs font-bold rounded-lg border transition-all ${
                     activeLetterFilter === let 
                     ? 'bg-gold-500 text-slate-950 border-gold-400 font-bold shadow' 
                     : 'bg-dark-bg text-slate-400 border-dark-border hover:text-gold-400'
@@ -694,7 +664,6 @@
                 return;
             }
 
-            // Group by letter
             const grouped = {};
             filteredWords.forEach(item => {
                 const key = item.letter.toUpperCase();
@@ -707,10 +676,10 @@
                 htmlOutput += `
                     <div class="space-y-4">
                         <div class="flex items-center gap-3 border-b border-gold-500/30 pb-2">
-                            <span class="w-9 h-9 rounded-xl bg-gold-500/10 border border-gold-500/30 font-cinzel font-bold text-xl text-gold-400 flex items-center justify-center">
+                            <span class="w-9 h-9 rounded-xl bg-gold-500/10 border border-gold-500/30 font-bold text-xl text-gold-400 flex items-center justify-center">
                                 ${letterKey}
                             </span>
-                            <span class="text-xs font-mono text-slate-400 uppercase tracking-widest">Раздел слов [${letterKey}]</span>
+                            <span class="text-xs text-slate-400 uppercase tracking-widest">Раздел слов [${letterKey}]</span>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -721,10 +690,10 @@
                                     <div class="flex items-start justify-between gap-3">
                                         <div>
                                             <div class="flex items-center gap-2">
-                                                <h3 class="text-2xl font-cinzel font-bold text-white tracking-wide">${wordObj.word}</h3>
+                                                <h3 class="text-2xl font-bold text-white tracking-wide">${wordObj.word}</h3>
                                                 ${hasAudio ? '<span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded" title="Прикреплен файл audioUrl"><i class="fa-solid fa-file-audio"></i> Custom MP3</span>' : ''}
                                             </div>
-                                            <span class="text-xs font-mono text-gold-400/90 bg-gold-500/10 px-2 py-0.5 rounded border border-gold-500/20 inline-block mt-1">
+                                            <span class="text-xs text-gold-400/90 bg-gold-500/10 px-2 py-0.5 rounded border border-gold-500/20 inline-block mt-1">
                                                 ${wordObj.ipa}
                                             </span>
                                         </div>
@@ -743,7 +712,7 @@
 
                                     <div class="bg-dark-bg p-3 rounded-xl border border-dark-border space-y-1 text-xs">
                                         <span class="text-[10px] font-semibold text-gold-500/80 uppercase tracking-wider block">Пример использования</span>
-                                        <p class="text-slate-300 italic font-cinzel">"${wordObj.example}"</p>
+                                        <p class="text-slate-300 italic">"${wordObj.example}"</p>
                                         <p class="text-slate-400">— ${wordObj.exampleTranslation}</p>
                                     </div>
                                 </div>
@@ -768,13 +737,12 @@
         }
 
         function renderAlphabetTab() {
-            // Modern
             const modernGrid = document.getElementById('modern-alphabet-grid');
             if (modernGrid) {
                 modernGrid.innerHTML = LANDAIS_DATABASE.modernAlphabet.map(item => `
                     <div class="glass-card rounded-xl p-4 flex flex-col items-center justify-center text-center space-y-2 relative group">
-                        <span class="text-2xl font-cinzel font-bold text-gold-400">${item.letter}</span>
-                        <span class="text-xs font-mono text-slate-400">${item.ipa}</span>
+                        <span class="text-2xl font-bold text-gold-400">${item.letter}</span>
+                        <span class="text-xs text-slate-400">${item.ipa}</span>
                         <span class="text-[11px] text-slate-300">${item.example}</span>
                         <button onclick="playSound('${item.audioUrl || ''}', '${item.name}', 'speech')" class="mt-1 w-8 h-8 rounded-lg bg-dark-bg hover:bg-gold-500 text-slate-400 hover:text-slate-950 border border-dark-border flex items-center justify-center transition-all">
                             <i class="fa-solid fa-volume-high text-xs"></i>
@@ -783,7 +751,6 @@
                 `).join('');
             }
 
-            // Archaic & Disused Letters
             const archaicGrid = document.getElementById('archaic-alphabet-grid');
             if (archaicGrid) {
                 archaicGrid.innerHTML = LANDAIS_DATABASE.archaicAlphabet.map(item => {
@@ -792,12 +759,12 @@
                     <div class="glass-card rounded-2xl p-5 space-y-3 relative border border-gold-500/20">
                         <div class="flex items-start justify-between gap-3">
                             <div class="flex items-center gap-3">
-                                <span class="w-12 h-12 rounded-xl bg-gold-500/10 border border-gold-500/30 font-cinzel font-bold text-2xl text-gold-400 flex items-center justify-center">
+                                <span class="w-12 h-12 rounded-xl bg-gold-500/10 border border-gold-500/30 font-bold text-2xl text-gold-400 flex items-center justify-center">
                                     ${item.symbol}
                                 </span>
                                 <div>
-                                    <h4 class="font-cinzel font-bold text-white text-base">${item.name}</h4>
-                                    <span class="text-xs font-mono text-amber-400">${item.ipa}</span>
+                                    <h4 class="font-bold text-white text-base">${item.name}</h4>
+                                    <span class="text-xs text-amber-400">${item.ipa}</span>
                                 </div>
                             </div>
                             <button onclick="playSound('${item.audioUrl || ''}', '${item.name}', 'speech')" class="w-9 h-9 rounded-xl ${hasAudio ? 'bg-gold-500 text-slate-950' : 'bg-dark-bg text-slate-400'} hover:bg-gold-400 hover:text-slate-950 border border-dark-border flex items-center justify-center transition-all" title="Слушать">
@@ -812,7 +779,7 @@
                             </div>
                             <div class="flex justify-between text-[11px] border-b border-dark-border pb-1">
                                 <span class="text-slate-500">Замена:</span>
-                                <span class="text-slate-300 font-mono">${item.replacement}</span>
+                                <span class="text-slate-300">${item.replacement}</span>
                             </div>
                             <p class="text-slate-400 leading-relaxed pt-1">
                                 ${item.history}
@@ -822,17 +789,16 @@
                 `}).join('');
             }
 
-            // Tones
             const tonesGrid = document.getElementById('tones-grid');
             if (tonesGrid) {
                 tonesGrid.innerHTML = LANDAIS_DATABASE.tones.map(t => `
                     <div class="glass-card p-5 rounded-xl space-y-3 border border-dark-border">
                         <div class="flex justify-between items-center">
-                            <span class="text-gold-400 font-bold font-cinzel text-lg">${t.title}</span>
-                            <span class="text-xs bg-gold-500/10 text-gold-400 px-2 py-0.5 rounded border border-gold-500/20 font-mono">${t.ipa}</span>
+                            <span class="text-gold-400 font-bold text-lg">${t.title}</span>
+                            <span class="text-xs bg-gold-500/10 text-gold-400 px-2 py-0.5 rounded border border-gold-500/20">${t.ipa}</span>
                         </div>
                         <p class="text-xs text-slate-300">${t.description}</p>
-                        <div class="text-xs bg-dark-bg p-3 rounded-lg border border-dark-border font-mono text-slate-400 flex justify-between items-center">
+                        <div class="text-xs bg-dark-bg p-3 rounded-lg border border-dark-border text-slate-400 flex justify-between items-center">
                             <span>${t.exampleWord} — «${t.meaning}»</span>
                             <button onclick="playSound('${t.audioUrl || ''}', '${t.exampleWord}', 'tone', {freq: ${t.freq || 0}, sweep: ${t.sweep ? JSON.stringify(t.sweep) : 'null'}})" class="text-gold-400 hover:text-white p-1">
                                 <i class="fa-solid fa-volume-high text-sm"></i>
@@ -860,7 +826,6 @@
             });
         }
 
-        // Initialize App on DOM Load
         window.onload = function() {
             renderGroupedDictionary();
             renderAlphabetTab();
