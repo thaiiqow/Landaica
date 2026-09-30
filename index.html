@@ -271,6 +271,38 @@
     </footer>
 
     <script>
+        // Канонический порядок алфавита Ландайского языка (28 букв)
+        const LANDAIS_ALPHABET_ORDER = [
+            'A', 'Ƀ', 'V', 'C', 'D', 'Ð', 'E', 'F', 'G', 'Ğ', 
+            'H', 'Ḩ', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 
+            'Q', 'R', 'X', 'T', 'U', 'Y', 'Z', 'Ԏ'
+        ];
+
+        // Получение базовой буквы Landaic с учетом диакритики и специфических символов
+        function getPrimaryLetterGroup(wordStr, fallbackLetter) {
+            if (fallbackLetter && LANDAIS_ALPHABET_ORDER.includes(fallbackLetter.toUpperCase())) {
+                return fallbackLetter.toUpperCase();
+            }
+
+            if (!wordStr) return 'A';
+
+            // Очищаем тона и совмещаемые диакритические знаки
+            const normalized = wordStr.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            const firstChar = normalized.charAt(0).toUpperCase();
+
+            if (firstChar === 'Đ' || firstChar === 'Ð') return 'Ð';
+            if (firstChar === 'Ƀ' || firstChar === 'Ɓ') return 'Ƀ';
+            if (firstChar === 'Ğ') return 'Ğ';
+            if (firstChar === 'Ḩ') return 'Ḩ';
+            if (firstChar === 'Ԏ' || firstChar === 'ԏ') return 'Ԏ';
+
+            if (LANDAIS_ALPHABET_ORDER.includes(firstChar)) {
+                return firstChar;
+            }
+
+            return 'A';
+        }
+
         const LANDAIS_DATABASE = {
             dictionary: [
                 {
@@ -491,7 +523,7 @@
                 },
                 {
                     word: "Đȃ",
-                    letter: "Đ",
+                    letter: "Ð",
                     ipa: "[/ˈde.los/]",
                     description: "Страна",
                     example: "La délos de son esprit nous inspire.",
@@ -500,7 +532,7 @@
                 },
                 {
                     word: "Đeg͜lĩan",
-                    letter: "Đ",
+                    letter: "Ð",
                     ipa: "[/ˈde.los/]",
                     description: "Да",
                     example: "La délos de son esprit nous inspire.",
@@ -509,7 +541,7 @@
                 },
                 {
                     word: "Đom",
-                    letter: "Đ",
+                    letter: "Ð",
                     ipa: "[/ˈde.los/]",
                     description: "Дом",
                     example: "La délos de son esprit nous inspire.",
@@ -518,7 +550,7 @@
                 },
                 {
                     word: "Đủ",
-                    letter: "Đ",
+                    letter: "Ð",
                     ipa: "[/ˈde.los/]",
                     description: "Святой",
                     example: "La délos de son esprit nous inspire.",
@@ -527,7 +559,7 @@
                 },
                 {
                     word: "Đuxon'an͜h",
-                    letter: "Đ",
+                    letter: "Ð",
                     ipa: "[/ˈde.los/]",
                     description: "Убедиться",
                     example: "La délos de son esprit nous inspire.",
@@ -536,7 +568,7 @@
                 },
                 {
                     word: "Đy̸only̸ac",
-                    letter: "Đ",
+                    letter: "Ð",
                     ipa: "[/ˈde.los/]",
                     description: "Город",
                     example: "La délos de son esprit nous inspire.",
@@ -1138,6 +1170,24 @@
 
         let currentActiveLetterFilter = 'ALL';
 
+        // Функция сравнительного анализа двух ландайских слов для правильной сортировки
+        function compareLandaicWords(itemA, itemB) {
+            const letterA = getPrimaryLetterGroup(itemA.word, itemA.letter);
+            const letterB = getPrimaryLetterGroup(itemB.word, itemB.letter);
+
+            const indexA = LANDAIS_ALPHABET_ORDER.indexOf(letterA);
+            const indexB = LANDAIS_ALPHABET_ORDER.indexOf(letterB);
+
+            const safeIndexA = indexA !== -1 ? indexA : 999;
+            const safeIndexB = indexB !== -1 ? indexB : 999;
+
+            if (safeIndexA !== safeIndexB) {
+                return safeIndexA - safeIndexB;
+            }
+
+            return itemA.word.localeCompare(itemB.word, 'ru');
+        }
+
         function renderGroupedDictionary(filterQuery = '', activeLetterFilter = 'ALL') {
             const listContainer = document.getElementById('dictionary-grouped-list');
             const statsContainer = document.getElementById('dict-stats');
@@ -1145,6 +1195,7 @@
 
             if (!listContainer) return;
 
+            // Фильтрация
             const filteredWords = LANDAIS_DATABASE.dictionary.filter(item => {
                 const matchesSearch = 
                     item.word.toLowerCase().includes(filterQuery.toLowerCase()) ||
@@ -1152,14 +1203,20 @@
                     item.description.toLowerCase().includes(filterQuery.toLowerCase()) ||
                     item.example.toLowerCase().includes(filterQuery.toLowerCase());
                 
-                const matchesLetter = (activeLetterFilter === 'ALL') || (item.letter.toUpperCase() === activeLetterFilter.toUpperCase());
+                const groupLetter = getPrimaryLetterGroup(item.word, item.letter);
+                const matchesLetter = (activeLetterFilter === 'ALL') || (groupLetter === activeLetterFilter.toUpperCase());
 
                 return matchesSearch && matchesLetter;
             });
 
-            const allLetters = ['ALL', ...new Set(LANDAIS_DATABASE.dictionary.map(item => item.letter.toUpperCase()))].sort();
+            // Сортировка всего списка слов согласно Ландайскому алфавиту
+            filteredWords.sort(compareLandaicWords);
 
-            filterBar.innerHTML = allLetters.map(let => `
+            // Формируем уникальные буквы для панели фильтрации СТРОГО по порядку Ландайского алфавита
+            const presentLettersSet = new Set(LANDAIS_DATABASE.dictionary.map(item => getPrimaryLetterGroup(item.word, item.letter)));
+            const sortedAvailableLetters = ['ALL', ...LANDAIS_ALPHABET_ORDER.filter(l => presentLettersSet.has(l))];
+
+            filterBar.innerHTML = sortedAvailableLetters.map(let => `
                 <button onclick="setLetterFilter('${let}')" class="px-2.5 py-1 text-xs font-bold rounded-lg border transition-all ${
                     activeLetterFilter === let 
                     ? 'bg-gold-500 text-slate-950 border-gold-400 font-bold shadow' 
@@ -1181,15 +1238,20 @@
                 return;
             }
 
+            // Группируем по правильной базовой букве Ландайского алфавита
             const grouped = {};
             filteredWords.forEach(item => {
-                const key = item.letter.toUpperCase();
-                if (!grouped[key]) grouped[key] = [];
-                grouped[key].push(item);
+                const groupKey = getPrimaryLetterGroup(item.word, item.letter);
+                if (!grouped[groupKey]) grouped[groupKey] = [];
+                grouped[groupKey].push(item);
             });
 
+            // Рендерим группы в каноническом Ландайском алфавитном порядке
             let htmlOutput = '';
-            Object.keys(grouped).sort().forEach(letterKey => {
+            
+            LANDAIS_ALPHABET_ORDER.forEach(letterKey => {
+                if (!grouped[letterKey] || grouped[letterKey].length === 0) return;
+
                 htmlOutput += `
                     <div class="space-y-4">
                         <div class="flex items-center gap-3 border-b border-gold-500/30 pb-2">
