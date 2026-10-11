@@ -273,9 +273,9 @@
     <script>
         // Канонический порядок алфавита Ландайского языка (28 букв)
         const LANDAIS_ALPHABET_ORDER = [
-            'A', 'Ƀ', 'V', 'C', 'D', 'Ð', 'E', 'F', 'G', 'Ğ', 
-            'H', 'Ḩ', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 
-            'Q', 'R', 'X', 'T', 'U', 'Y', 'Z', 'Ԏ'
+            'A', 'Ƀ', 'V', 'C', 'D', 'Ð', 'E', 'Ҽ', 'F', 'G', 
+            'Ğ', 'H', 'Ḩ', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 
+            'P', 'Q', 'R', 'X', 'T', 'U', 'Ư', 'Y', 'Z', 'Ԏ'
         ];
 
         // Получение базовой буквы Landaic с учетом диакритики и специфических символов
@@ -292,8 +292,10 @@
 
             if (firstChar === 'Đ' || firstChar === 'Ð') return 'Ð';
             if (firstChar === 'Ƀ' || firstChar === 'Ɓ') return 'Ƀ';
+            if (firstChar === 'Ҽ') return 'Ҽ';
             if (firstChar === 'Ğ') return 'Ğ';
             if (firstChar === 'Ḩ') return 'Ḩ';
+            if (firstChar === 'Ư') return 'Ư';
             if (firstChar === 'Ԏ' || firstChar === 'ԏ') return 'Ԏ';
 
             if (LANDAIS_ALPHABET_ORDER.includes(firstChar)) {
