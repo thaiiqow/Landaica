@@ -274,8 +274,9 @@
         // Канонический порядок алфавита Ландайского языка (28 букв)
         const LANDAIS_ALPHABET_ORDER = [
             'A', 'Ƀ', 'V', 'C', 'D', 'Ð', 'E', 'Ҽ', 'F', 'G', 
-            'Ğ', 'H', 'Ḩ', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 
-            'P', 'Q', 'R', 'X', 'T', 'U', 'Ư', 'Y', 'Z', 'Ԏ'
+            'Ğ', 'H', 'Ḩ', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
+            'Ơ', 'P', 'Q', 'R', 'X', 'T', 'U', 'Ư', 'Y', 'Z', 
+            'Ԏ'
         ];
 
         // Получение базовой буквы Landaic с учетом диакритики и специфических символов
@@ -295,6 +296,7 @@
             if (firstChar === 'Ҽ') return 'Ҽ';
             if (firstChar === 'Ğ') return 'Ğ';
             if (firstChar === 'Ḩ') return 'Ḩ';
+            if (firstChar === 'Ơ') return 'Ơ';
             if (firstChar === 'Ư') return 'Ư';
             if (firstChar === 'Ԏ' || firstChar === 'ԏ') return 'Ԏ';
 
@@ -1910,28 +1912,29 @@
                 { letter: "D d", name: "D", ipa: "/d͡z/", example: "5-ая буква Алфавита", audioUrl: "" },
                 { letter: "Ð đ", name: "Đ", ipa: "/d/", example: "6-ая буква Алфавита", audioUrl: "" },
                 { letter: "E e", name: "E", ipa: "/e/", example: "7-ая буква Алфавита", audioUrl: "" },
-                { letter: "Ҽ ҽ", name: "Ҽ", ipa: "/e/", example: "7-ая буква Алфавита", audioUrl: "" },
-                { letter: "F f", name: "F", ipa: "/f/", example: "8-ая буква Алфавита", audioUrl: "" },
-                { letter: "G g", name: "G", ipa: "/g/", example: "9-ая буква Алфавита", audioUrl: "" },
-                { letter: "Ğ ğ", name: "Ğ", ipa: "/ğ/", example: "10-ая буква Алфавита", audioUrl: "" },
-                { letter: "H h", name: "H", ipa: "/h/", example: "11-ая буква Алфавита", audioUrl: "" },
-                { letter: "Ḩ ḩ", name: "Ḩ", ipa: "/ḩ/", example: "12-ая буква Алфавита", audioUrl: "" },
-                { letter: "I i", name: "I", ipa: "/i/", example: "13-ая буква Алфавита", audioUrl: "" },
-                { letter: "K k", name: "K", ipa: "/k/", example: "14-ая буква Алфавита", audioUrl: "" },
-                { letter: "L l", name: "L", ipa: "/l/", example: "15-ая буква Алфавита", audioUrl: "" },
-                { letter: "M m", name: "M", ipa: "/m/", example: "16-ая буква Алфавита", audioUrl: "" },
-                { letter: "N n", name: "N", ipa: "/n/", example: "17-ая буква Алфавита", audioUrl: "" },
-                { letter: "O o", name: "O", ipa: "/o/", example: "18-ая буква Алфавита", audioUrl: "" },
-                { letter: "P p", name: "P", ipa: "/p/", example: "19-ая буква Алфавита", audioUrl: "" },
-                { letter: "Q q", name: "Q", ipa: "/q/", example: "20-ая буква Алфавита", audioUrl: "" },
-                { letter: "R r", name: "R", ipa: "/r/", example: "21-ая буква Алфавита", audioUrl: "" },
-                { letter: "X x", name: "X", ipa: "/s/", example: "22-ая буква Алфавита", audioUrl: "" },
-                { letter: "T t", name: "T", ipa: "/t/", example: "23-ая буква Алфавита", audioUrl: "" },
-                { letter: "U u", name: "U", ipa: "/u/", example: "24-ья буква Алфавита", audioUrl: "" },
-                { letter: "Ư ư", name: "Ư", ipa: "/u/", example: "24-ья буква Алфавита", audioUrl: "" },
-                { letter: "Y y", name: "Y", ipa: "/y/", example: "25-ая буква Алфавита", audioUrl: "" },
-                { letter: "Z z", name: "Z", ipa: "/z/", example: "26-ая  буква Алфавита", audioUrl: "" },
-                { letter: "Ԏ ԏ", name: "Ԏ", ipa: "/y/", example: "27-ая  буква Алфавита", audioUrl: "" }
+                { letter: "Ҽ ҽ", name: "Ҽ", ipa: "/e/", example: "8-ая буква Алфавита", audioUrl: "" },
+                { letter: "F f", name: "F", ipa: "/f/", example: "9-ая буква Алфавита", audioUrl: "" },
+                { letter: "G g", name: "G", ipa: "/g/", example: "10-ая буква Алфавита", audioUrl: "" },
+                { letter: "Ğ ğ", name: "Ğ", ipa: "/ğ/", example: "11-ая буква Алфавита", audioUrl: "" },
+                { letter: "H h", name: "H", ipa: "/h/", example: "12-ая буква Алфавита", audioUrl: "" },
+                { letter: "Ḩ ḩ", name: "Ḩ", ipa: "/ḩ/", example: "13-ая буква Алфавита", audioUrl: "" },
+                { letter: "I i", name: "I", ipa: "/i/", example: "14-ая буква Алфавита", audioUrl: "" },
+                { letter: "K k", name: "K", ipa: "/k/", example: "15-ая буква Алфавита", audioUrl: "" },
+                { letter: "L l", name: "L", ipa: "/l/", example: "16-ая буква Алфавита", audioUrl: "" },
+                { letter: "M m", name: "M", ipa: "/m/", example: "17-ая буква Алфавита", audioUrl: "" },
+                { letter: "N n", name: "N", ipa: "/n/", example: "18-ая буква Алфавита", audioUrl: "" },
+                { letter: "O o", name: "O", ipa: "/o/", example: "19-ая буква Алфавита", audioUrl: "" },
+                { letter: "Ơ ơ", name: "Ơ", ipa: "/o/", example: "20-ая буква Алфавита", audioUrl: "" },
+                { letter: "P p", name: "P", ipa: "/p/", example: "21-ая буква Алфавита", audioUrl: "" },
+                { letter: "Q q", name: "Q", ipa: "/q/", example: "22-ая буква Алфавита", audioUrl: "" },
+                { letter: "R r", name: "R", ipa: "/r/", example: "23-ья буква Алфавита", audioUrl: "" },
+                { letter: "X x", name: "X", ipa: "/s/", example: "24-ая буква Алфавита", audioUrl: "" },
+                { letter: "T t", name: "T", ipa: "/t/", example: "25-ая буква Алфавита", audioUrl: "" },
+                { letter: "U u", name: "U", ipa: "/u/", example: "26-ая буква Алфавита", audioUrl: "" },
+                { letter: "Ư ư", name: "Ư", ipa: "/u/", example: "27-ая буква Алфавита", audioUrl: "" },
+                { letter: "Y y", name: "Y", ipa: "/y/", example: "28-ая буква Алфавита", audioUrl: "" },
+                { letter: "Z z", name: "Z", ipa: "/z/", example: "29-ая  буква Алфавита", audioUrl: "" },
+                { letter: "Ԏ ԏ", name: "Ԏ", ipa: "/y/", example: "30-ая  буква Алфавита", audioUrl: "" }
             ],
 
             archaicAlphabet: [
